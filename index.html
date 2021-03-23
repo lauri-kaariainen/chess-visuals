@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+    <style>
+      html {
+        background: #0f0f23;
+        color: #cccccc;
+        color: #64c168;
+
+        /* overflow: hidden; */
+        user-select: none;
+      }
+      body {
+        font-family: monospace;
+        cursor: crosshair;
+        overflow: auto;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(8, auto);
+        justify-content: center;
+        transform-origin: top;
+        transform: scale(10);
+        filter: saturate(10) brightness(100);
+        /* filter: saturate(1.2) hue-rotate(80deg); */
+        /* overflow: hidden; */
+        /* transform: scale(6); */
+        transition: filter 4s ease-in, transform 10s;
+      }
+
+      td.synapse {
+        /* background: #348138; */
+        /* color: #0f0f23; */
+        text-shadow: #2cff00 1px 1px 9px, #2cff00 1px -1px 9px,
+          #2cff00 -1px 1px 9px, #2cff00 -1px -1px 9px;
+        text-shadow: #21d621 1px 1px 8px, #21d621 -1px 1px 8px,
+          #21d621 1px -1px 8px;
+      }
+      td.synapse1 {
+        /* background: #348138; */
+        /* color: #0f0f23; */
+        text-shadow: #2cff00 1px 1px 9px, #2cff00 1px -1px 9px,
+          #2cff00 -1px 1px 9px, #2cff00 -1px -1px 9px;
+      }
+      td.synapse2 {
+        /* yellowish */
+        text-shadow: #e5ff00 1px 1px 9px, #e5ff00 1px -1px 9px,
+          #e5ff00 -1px 1px 9px, #e5ff00 -1px -1px 9px;
+      }
+      td.synapse3 {
+        /*redish*/
+        text-shadow: #ff2121 1px 1px 9px, #ff2121 1px -1px 9px,
+          #ff2121 -1px 1px 9px, #ff2121 -1px -1px 9px;
+      }
+      td.synapse4 {
+        /*whitish*/
+        text-shadow: #fff 1px 1px 9px, #fff 1px -1px 9px, #fff -1px 1px 9px,
+          #fff -1px -1px 9px;
+        text-shadow: #fff 2px 2px 2px, #fff 2px -2px 2px, #fff -2px 2px 2px,
+          #fff -2px -2px 2px;
+        /* text-shadow: #89ff79 1px 1px 9px, #89ff79 1px -1px 9px,
+          #89ff79 -1px 1px 9px, #89ff79 -1px -1px 9px; */
+        /* filter: saturate(10); */
+        filter: brightness(15);
+        /* transition: all 3s ease-in; */
+      }
+      td.synapse5 {
+        /* purple */
+        text-shadow: #ea81ff 1px 1px 9px, #ea81ff 1px -1px 9px,
+          #ea81ff -1px 1px 9px, #ea81ff -1px -1px 9px;
+      }
+      td.synapse6 {
+        /* blue */
+        text-shadow: #5980ff 1px 1px 9px, #5980ff 1px -1px 9px,
+          #5980ff -1px 1px 9px, #5980ff -1px -1px 9px;
+      }
+
+      table {
+        /* width: 100vw; */
+        /* margin: -3px; */
+        /* height: 100vh;  */
+        /* table-layout: fixed; */
+        border-spacing: 0px;
+      }
+
+      .row,
+      tr {
+        display: block;
+        /* height: 16px; */
+        /* height: 8px; */
+        /* height: 13px; */
+        height: 0.86em;
+        height: 1.26em;
+        height: 1.7em;
+        height: 22px;
+        font-size: 20px;
+        font-size: 30px;
+        font-size: 40px;
+        /* font-size: 60px; */
+        /* font-size: 80px; */
+        width: 100%;
+      }
+
+      td.invert {
+        text-shadow: #2cff00 1px 1px 9px, #2cff00 1px -1px 9px,
+          #2cff00 -1px 1px 9px, #2cff00 -1px -1px 9px;
+      }
+      td.synapse.invert {
+        text-shadow: darkgreen 1px 1px 8px, darkgreen -1px 1px 8px,
+          darkgreen 1px -1px 8px;
+      }
+      td {
+        /* height: 8px; */
+        /* line-height: 8px; */
+        text-shadow: darkgreen 1px 1px 8px, darkgreen -1px 1px 8px,
+          darkgreen 1px -1px 8px;
+
+        /* text-shadow: #01b601 1px 1px 8px, #01b601 -1px 1px 8px,
+          #01b601 1px -1px 8px; */
+        /* text-shadow: #2cff00 1px 1px 2px, #2cff00 1px -1px 2px,
+          #2cff00 -1px 1px 2px, #2cff00 -1px -1px 2px; */
+        /* height: 2px; */
+        /* line-height: 10px; */
+        /* width: 12px; */
+        max-width: 21.2px;
+        /* min-width: 14.2px;  */
+        padding: 0px;
+        /* transition: all 3s ease-in; */
+      }
+
+      td.black {
+        filter: brightness(0.1) !important;
+      }
+
+      /*
+      background: #64c168;
+            color: white;*/
+    </style>
+  </head>
+  <body></body>
+
+  <script>
+    // const SIDELENGTH = ;
+    // const LINEHEIGHT = 8;
+    // const LINEWIDTH = 14.2;
+
+    const BOXSIZE = 15;
+
+    const PIXELSAMOUNT = 15 * 1;
+
+    // const heightInLetters = Math.floor(window.innerHeight / LINEHEIGHT);
+    // const widthInLetters = Math.floor(window.innerWidth / LINEWIDTH);
+
+    // console.log(
+    //   "heightinletters",
+    //   heightInLetters,
+    //   "widthinletters",
+    //   widthInLetters
+    // );
+
+    var arr = Array.from(new Array(PIXELSAMOUNT)).map((e) =>
+      Array.from(new Array(PIXELSAMOUNT)).map((e) => ".")
+    );
+
+    const newArr = arr.map((line, y) =>
+      line.map(
+        (ch, x) =>
+          // (Math.floor((y / BOXSIZE) % 2) || Math.floor((x / BOXSIZE) % 2)) &&
+          // !(Math.floor((y / BOXSIZE) % 2) && Math.floor((x / BOXSIZE) % 2))
+          //   ? "#"
+          // :
+          "."
+      )
+    );
+
+    for (let i = 0; i < 64; i++) drawToHtml(newArr, i);
+
+    const arrayOfTDs = Array.from(document.querySelectorAll("tr")).map((tr) =>
+      Array.from(tr.querySelectorAll("td"))
+    );
+
+    const originalClassesArray = arrayOfTDs.map((tdArr) =>
+      tdArr.map((td) => td.className)
+    );
+
+    // console.log(arrayOfTDs);
+
+    function drawToHtml(arr, i) {
+      const table = document.createElement("table");
+      table.innerHTML = arr
+        .map(
+          (line, y) =>
+            "<tr class='row'>" +
+            line
+              .map(
+                (ch, x) =>
+                  `<td
+                        title="(${x},${y})"
+                        class="${
+                          isLightSquare(Math.floor(i / 8), i % 8)
+                            ? "synapse"
+                            : ""
+                        }">${String.fromCharCode(
+                    34 + Math.floor(Math.random() * 90)
+                  )}</td>` //ch === "#" ? "synapse" : ""}">${"."}</td>`
+              )
+              .join(" ") +
+            "</tr>"
+        )
+        .join("");
+      document.querySelector("body").appendChild(table);
+    }
+
+    function isLightSquare(row, column) {
+      return row % 2 == column % 2;
+    }
+
+    const SCALEAMOUNTATSTART = 10; //make same as in css body component
+    const REALWIDTH =
+      document.querySelector("td").getBoundingClientRect().width *
+      PIXELSAMOUNT *
+      8;
+
+    if (innerWidth < REALWIDTH)
+      document.querySelector("body").style.transform = `scale(${
+        // innerWidth < REALWIDTH ? innerWidth / REALWIDTH : REALWIDTH / innerWidth
+        (innerWidth / (REALWIDTH * 1.1)) * SCALEAMOUNTATSTART
+      })`;
+
+    // function handleMove(xInPixels, yInPixels) {
+    //   // console.log(xInPixels, window.innerWidth);
+    //   if (!handleMove.realWidth)
+    //     handleMove.realWidth = document
+    //       .querySelector("table")
+    //       .getBoundingClientRect().width;
+
+    //   changeClassInHtml(
+    //     Math.floor((xInPixels / handleMove.realWidth) * widthInLetters),
+    //     Math.floor((yInPixels / window.innerHeight) * heightInLetters),
+    //     "invert"
+    //   );
+    // }
+
+    // function crawlAndColor(currLine = 0) {
+    //   setTimeout(() => {
+    //     arrayOfTDs[currLine].forEach(
+    //       (td, i) => td.classList.toggle("invert")
+    //       // (td.className =
+    //       //   td.className === "synapse"
+    //       //     ? changeClassInHtml.classInUse
+    //       //     : "synapse1")
+    //     );
+    //     crawlAndColor(currLine >= arrayOfTDs.length - 1 ? 0 : currLine + 1);
+    //   }, 50);
+    // }
+
+    // function changeClassInHtml(x, y, className) {
+    //   if (!changeClassInHtml.memArr) {
+    //     changeClassInHtml.memArr = [];
+    //     document
+    //       .querySelectorAll("tr")
+    //       .forEach((tr) =>
+    //         changeClassInHtml.memArr.push(Array.from(tr.querySelectorAll("td")))
+    //       );
+    //     changeClassInHtml.originalValues = changeClassInHtml.memArr.map(
+    //       (tdArr) => tdArr.map((td) => td.className)
+    //     );
+    //     console.log(changeClassInHtml.originalValues);
+    //   }
+
+    //   for (let i = x - 5; i < x + 5; i++) {
+    //     for (let j = y - 5; j < y + 5; j++) {
+    //       if (changeClassInHtml.memArr[j] && changeClassInHtml.memArr[j][i])
+    //         if (changeClassInHtml.originalValues[j][i] === "synapse")
+    //           // changeClassInHtml.memArr[j][i].classList.toggle(className);
+    //           changeClassInHtml.memArr[j][i].classList.remove("synapse");
+    //         else {
+    //           changeClassInHtml.memArr[j][i].classList.remove(
+    //             "synapse",
+    //             "synapse1",
+    //             "synapse2",
+    //             "synapse3",
+    //             "synapse4",
+    //             "synapse5",
+    //             "synapse6"
+    //           );
+    //           changeClassInHtml.memArr[j][i].classList.add(
+    //             changeClassInHtml.classInUse
+    //           );
+    //         }
+    //     }
+    //   }
+    // }
+
+    // setInterval(
+    //   () =>
+    //     (changeClassInHtml.classInUse =
+    //       "synapse" + Math.ceil(Math.random() * 6)),
+    //   2000
+    // );
+
+    // crawlAndColor();
+
+    // document.addEventListener("mousemove", function (e) {
+    //   const x = e.clientX;
+    //   const y = e.clientY;
+    //   handleMove(x, y);
+    // });
+    // document.addEventListener("touchmove", function (e) {
+    //   const x = e.changedTouches[0].clientX;
+    //   const y = e.changedTouches[0].clientY;
+    //   handleMove(x, y);
+    // });
+
+    const PAWN = [
+      { x: 7, y: 1 },
+      { x: 6, y: 2 },
+      { x: 7, y: 2 },
+      { x: 8, y: 2 },
+      { x: 6, y: 3 },
+      { x: 7, y: 3 },
+      { x: 8, y: 3 },
+      { x: 5, y: 4 },
+      { x: 6, y: 4 },
+      { x: 7, y: 4 },
+      { x: 8, y: 4 },
+      { x: 9, y: 4 },
+      { x: 5, y: 5 },
+      { x: 6, y: 5 },
+      { x: 7, y: 5 },
+      { x: 8, y: 5 },
+      { x: 9, y: 5 },
+      { x: 6, y: 6 },
+      { x: 7, y: 6 },
+      { x: 8, y: 6 },
+      { x: 7, y: 7 },
+      { x: 6, y: 8 },
+      { x: 7, y: 8 },
+      { x: 8, y: 8 },
+      { x: 6, y: 9 },
+      { x: 7, y: 9 },
+      { x: 8, y: 9 },
+      { x: 5, y: 10 },
+      { x: 6, y: 10 },
+      { x: 7, y: 10 },
+      { x: 8, y: 10 },
+      { x: 9, y: 10 },
+      { x: 4, y: 11 },
+      { x: 5, y: 11 },
+      { x: 6, y: 11 },
+      { x: 7, y: 11 },
+      { x: 8, y: 11 },
+      { x: 9, y: 11 },
+      { x: 10, y: 11 },
+      { x: 2, y: 12 },
+      { x: 3, y: 12 },
+      { x: 4, y: 12 },
+      { x: 5, y: 12 },
+      { x: 6, y: 12 },
+      { x: 7, y: 12 },
+      { x: 8, y: 12 },
+      { x: 9, y: 12 },
+      { x: 10, y: 12 },
+      { x: 11, y: 12 },
+      { x: 12, y: 12 },
+      { x: 1, y: 13 },
+      { x: 2, y: 13 },
+      { x: 3, y: 13 },
+      { x: 4, y: 13 },
+      { x: 5, y: 13 },
+      { x: 6, y: 13 },
+      { x: 7, y: 13 },
+      { x: 8, y: 13 },
+      { x: 9, y: 13 },
+      { x: 10, y: 13 },
+      { x: 11, y: 13 },
+      { x: 12, y: 13 },
+      { x: 13, y: 13 }
+    ];
+
+    const HORS = [
+      { x: 8, y: 1 },
+      { x: 5, y: 2 },
+      { x: 6, y: 2 },
+      { x: 7, y: 2 },
+      { x: 8, y: 2 },
+      { x: 9, y: 2 },
+      { x: 5, y: 3 },
+      { x: 6, y: 3 },
+      { x: 7, y: 3 },
+      { x: 8, y: 3 },
+      { x: 9, y: 3 },
+      { x: 10, y: 3 },
+      { x: 4, y: 4 },
+      { x: 5, y: 4 },
+      { x: 7, y: 4 },
+      { x: 8, y: 4 },
+      { x: 9, y: 4 },
+      { x: 10, y: 4 },
+      { x: 3, y: 5 },
+      { x: 4, y: 5 },
+      { x: 5, y: 5 },
+      { x: 6, y: 5 },
+      { x: 7, y: 5 },
+      { x: 8, y: 5 },
+      { x: 9, y: 5 },
+      { x: 10, y: 5 },
+      { x: 11, y: 5 },
+      { x: 3, y: 6 },
+      { x: 4, y: 6 },
+      { x: 5, y: 6 },
+      { x: 6, y: 6 },
+      { x: 7, y: 6 },
+      { x: 8, y: 6 },
+      { x: 9, y: 6 },
+      { x: 10, y: 6 },
+      { x: 11, y: 6 },
+      { x: 6, y: 7 },
+      { x: 7, y: 7 },
+      { x: 8, y: 7 },
+      { x: 9, y: 7 },
+      { x: 10, y: 7 },
+      { x: 11, y: 7 },
+      { x: 6, y: 8 },
+      { x: 7, y: 8 },
+      { x: 8, y: 8 },
+      { x: 9, y: 8 },
+      { x: 10, y: 8 },
+      { x: 11, y: 8 },
+      { x: 5, y: 9 },
+      { x: 6, y: 9 },
+      { x: 7, y: 9 },
+      { x: 8, y: 9 },
+      { x: 9, y: 9 },
+      { x: 10, y: 9 },
+      { x: 4, y: 10 },
+      { x: 5, y: 10 },
+      { x: 6, y: 10 },
+      { x: 7, y: 10 },
+      { x: 8, y: 10 },
+      { x: 9, y: 10 },
+      { x: 4, y: 11 },
+      { x: 5, y: 11 },
+      { x: 6, y: 11 },
+      { x: 7, y: 11 },
+      { x: 8, y: 11 },
+      { x: 9, y: 11 },
+      { x: 10, y: 11 },
+      { x: 3, y: 12 },
+      { x: 4, y: 12 },
+      { x: 5, y: 12 },
+      { x: 6, y: 12 },
+      { x: 7, y: 12 },
+      { x: 8, y: 12 },
+      { x: 9, y: 12 },
+      { x: 10, y: 12 },
+      { x: 11, y: 12 },
+      { x: 1, y: 13 },
+      { x: 2, y: 13 },
+      { x: 3, y: 13 },
+      { x: 4, y: 13 },
+      { x: 5, y: 13 },
+      { x: 6, y: 13 },
+      { x: 7, y: 13 },
+      { x: 8, y: 13 },
+      { x: 9, y: 13 },
+      { x: 10, y: 13 },
+      { x: 11, y: 13 },
+      { x: 12, y: 13 },
+      { x: 13, y: 13 }
+    ];
+
+    const BISH = [
+      { x: 7, y: 1 },
+      { x: 6, y: 2 },
+      { x: 7, y: 2 },
+      { x: 8, y: 2 },
+      { x: 5, y: 3 },
+      { x: 6, y: 3 },
+      { x: 8, y: 3 },
+      { x: 9, y: 3 },
+      { x: 4, y: 4 },
+      { x: 5, y: 4 },
+      { x: 6, y: 4 },
+      { x: 8, y: 4 },
+      { x: 9, y: 4 },
+      { x: 10, y: 4 },
+      { x: 3, y: 5 },
+      { x: 4, y: 5 },
+      { x: 10, y: 5 },
+      { x: 11, y: 5 },
+      { x: 4, y: 6 },
+      { x: 5, y: 6 },
+      { x: 6, y: 6 },
+      { x: 8, y: 6 },
+      { x: 9, y: 6 },
+      { x: 10, y: 6 },
+      { x: 5, y: 7 },
+      { x: 6, y: 7 },
+      { x: 8, y: 7 },
+      { x: 9, y: 7 },
+      { x: 5, y: 8 },
+      { x: 6, y: 8 },
+      { x: 7, y: 8 },
+      { x: 8, y: 8 },
+      { x: 9, y: 8 },
+      { x: 5, y: 9 },
+      { x: 6, y: 9 },
+      { x: 7, y: 9 },
+      { x: 8, y: 9 },
+      { x: 9, y: 9 },
+      { x: 5, y: 10 },
+      { x: 6, y: 10 },
+      { x: 7, y: 10 },
+      { x: 8, y: 10 },
+      { x: 9, y: 10 },
+      { x: 4, y: 11 },
+      { x: 5, y: 11 },
+      { x: 6, y: 11 },
+      { x: 7, y: 11 },
+      { x: 8, y: 11 },
+      { x: 9, y: 11 },
+      { x: 10, y: 11 },
+      { x: 2, y: 12 },
+      { x: 3, y: 12 },
+      { x: 4, y: 12 },
+      { x: 5, y: 12 },
+      { x: 6, y: 12 },
+      { x: 7, y: 12 },
+      { x: 8, y: 12 },
+      { x: 9, y: 12 },
+      { x: 10, y: 12 },
+      { x: 11, y: 12 },
+      { x: 12, y: 12 },
+      { x: 1, y: 13 },
+      { x: 2, y: 13 },
+      { x: 3, y: 13 },
+      { x: 4, y: 13 },
+      { x: 5, y: 13 },
+      { x: 6, y: 13 },
+      { x: 7, y: 13 },
+      { x: 8, y: 13 },
+      { x: 9, y: 13 },
+      { x: 10, y: 13 },
+      { x: 11, y: 13 },
+      { x: 12, y: 13 },
+      { x: 13, y: 13 }
+    ];
+
+    const ROOK = [
+      { x: 3, y: 1 },
+      { x: 7, y: 1 },
+      { x: 11, y: 1 },
+      { x: 2, y: 2 },
+      { x: 3, y: 2 },
+      { x: 4, y: 2 },
+      { x: 6, y: 2 },
+      { x: 7, y: 2 },
+      { x: 8, y: 2 },
+      { x: 10, y: 2 },
+      { x: 11, y: 2 },
+      { x: 12, y: 2 },
+      { x: 2, y: 3 },
+      { x: 3, y: 3 },
+      { x: 4, y: 3 },
+      { x: 6, y: 3 },
+      { x: 7, y: 3 },
+      { x: 8, y: 3 },
+      { x: 10, y: 3 },
+      { x: 11, y: 3 },
+      { x: 12, y: 3 },
+      { x: 2, y: 4 },
+      { x: 3, y: 4 },
+      { x: 4, y: 4 },
+      { x: 5, y: 4 },
+      { x: 6, y: 4 },
+      { x: 7, y: 4 },
+      { x: 8, y: 4 },
+      { x: 9, y: 4 },
+      { x: 10, y: 4 },
+      { x: 11, y: 4 },
+      { x: 12, y: 4 },
+      { x: 3, y: 5 },
+      { x: 4, y: 5 },
+      { x: 5, y: 5 },
+      { x: 6, y: 5 },
+      { x: 7, y: 5 },
+      { x: 8, y: 5 },
+      { x: 9, y: 5 },
+      { x: 10, y: 5 },
+      { x: 11, y: 5 },
+      { x: 4, y: 6 },
+      { x: 5, y: 6 },
+      { x: 6, y: 6 },
+      { x: 7, y: 6 },
+      { x: 8, y: 6 },
+      { x: 9, y: 6 },
+      { x: 10, y: 6 },
+      { x: 4, y: 7 },
+      { x: 5, y: 7 },
+      { x: 6, y: 7 },
+      { x: 7, y: 7 },
+      { x: 8, y: 7 },
+      { x: 9, y: 7 },
+      { x: 10, y: 7 },
+      { x: 4, y: 8 },
+      { x: 5, y: 8 },
+      { x: 6, y: 8 },
+      { x: 7, y: 8 },
+      { x: 8, y: 8 },
+      { x: 9, y: 8 },
+      { x: 10, y: 8 },
+      { x: 4, y: 9 },
+      { x: 5, y: 9 },
+      { x: 6, y: 9 },
+      { x: 7, y: 9 },
+      { x: 8, y: 9 },
+      { x: 9, y: 9 },
+      { x: 10, y: 9 },
+      { x: 4, y: 10 },
+      { x: 5, y: 10 },
+      { x: 6, y: 10 },
+      { x: 7, y: 10 },
+      { x: 8, y: 10 },
+      { x: 9, y: 10 },
+      { x: 10, y: 10 },
+      { x: 3, y: 11 },
+      { x: 4, y: 11 },
+      { x: 5, y: 11 },
+      { x: 6, y: 11 },
+      { x: 7, y: 11 },
+      { x: 8, y: 11 },
+      { x: 9, y: 11 },
+      { x: 10, y: 11 },
+      { x: 11, y: 11 },
+      { x: 2, y: 12 },
+      { x: 3, y: 12 },
+      { x: 4, y: 12 },
+      { x: 5, y: 12 },
+      { x: 6, y: 12 },
+      { x: 7, y: 12 },
+      { x: 8, y: 12 },
+      { x: 9, y: 12 },
+      { x: 10, y: 12 },
+      { x: 11, y: 12 },
+      { x: 12, y: 12 },
+      { x: 1, y: 13 },
+      { x: 2, y: 13 },
+      { x: 3, y: 13 },
+      { x: 4, y: 13 },
+      { x: 5, y: 13 },
+      { x: 6, y: 13 },
+      { x: 7, y: 13 },
+      { x: 8, y: 13 },
+      { x: 9, y: 13 },
+      { x: 10, y: 13 },
+      { x: 11, y: 13 },
+      { x: 12, y: 13 },
+      { x: 13, y: 13 }
+    ];
+
+    const KING = [
+      { x: 2, y: 1 },
+      { x: 3, y: 1 },
+      { x: 7, y: 1 },
+      { x: 11, y: 1 },
+      { x: 12, y: 1 },
+      { x: 2, y: 2 },
+      { x: 3, y: 2 },
+      { x: 6, y: 2 },
+      { x: 7, y: 2 },
+      { x: 8, y: 2 },
+      { x: 11, y: 2 },
+      { x: 12, y: 2 },
+      { x: 2, y: 3 },
+      { x: 3, y: 3 },
+      { x: 5, y: 3 },
+      { x: 6, y: 3 },
+      // { x: 7, y: 3 },
+      { x: 8, y: 3 },
+      { x: 9, y: 3 },
+      { x: 11, y: 3 },
+      { x: 12, y: 3 },
+      { x: 2, y: 4 },
+      { x: 3, y: 4 },
+      { x: 4, y: 4 },
+      { x: 6, y: 4 },
+      { x: 7, y: 4 },
+      { x: 8, y: 4 },
+      { x: 10, y: 4 },
+      { x: 11, y: 4 },
+      { x: 12, y: 4 },
+      { x: 2, y: 5 },
+      { x: 3, y: 5 },
+      { x: 4, y: 5 },
+      { x: 5, y: 5 },
+      { x: 7, y: 5 },
+      { x: 9, y: 5 },
+      { x: 10, y: 5 },
+      { x: 11, y: 5 },
+      { x: 12, y: 5 },
+      { x: 2, y: 6 },
+      { x: 3, y: 6 },
+      { x: 4, y: 6 },
+      { x: 5, y: 6 },
+      { x: 9, y: 6 },
+      { x: 10, y: 6 },
+      { x: 11, y: 6 },
+      { x: 12, y: 6 },
+      { x: 2, y: 7 },
+      { x: 3, y: 7 },
+      { x: 4, y: 7 },
+      { x: 5, y: 7 },
+      { x: 9, y: 7 },
+      { x: 10, y: 7 },
+      { x: 11, y: 7 },
+      { x: 12, y: 7 },
+      { x: 2, y: 8 },
+      { x: 3, y: 8 },
+      { x: 4, y: 8 },
+      { x: 5, y: 8 },
+      { x: 6, y: 8 },
+      { x: 8, y: 8 },
+      { x: 9, y: 8 },
+      { x: 10, y: 8 },
+      { x: 11, y: 8 },
+      { x: 12, y: 8 },
+      { x: 2, y: 9 },
+      { x: 3, y: 9 },
+      { x: 4, y: 9 },
+      { x: 5, y: 9 },
+      { x: 6, y: 9 },
+      { x: 7, y: 9 },
+      { x: 8, y: 9 },
+      { x: 9, y: 9 },
+      { x: 10, y: 9 },
+      { x: 11, y: 9 },
+      { x: 12, y: 9 },
+      { x: 2, y: 10 },
+      { x: 3, y: 10 },
+      { x: 4, y: 10 },
+      { x: 5, y: 10 },
+      { x: 6, y: 10 },
+      { x: 7, y: 10 },
+      { x: 8, y: 10 },
+      { x: 9, y: 10 },
+      { x: 10, y: 10 },
+      { x: 11, y: 10 },
+      { x: 12, y: 10 },
+      { x: 2, y: 11 },
+      { x: 3, y: 11 },
+      { x: 4, y: 11 },
+      { x: 5, y: 11 },
+      { x: 6, y: 11 },
+      { x: 7, y: 11 },
+      { x: 8, y: 11 },
+      { x: 9, y: 11 },
+      { x: 10, y: 11 },
+      { x: 11, y: 11 },
+      { x: 12, y: 11 },
+      { x: 3, y: 12 },
+      { x: 4, y: 12 },
+      { x: 5, y: 12 },
+      { x: 6, y: 12 },
+      { x: 7, y: 12 },
+      { x: 8, y: 12 },
+      { x: 9, y: 12 },
+      { x: 10, y: 12 },
+      { x: 11, y: 12 },
+      { x: 4, y: 13 },
+      { x: 5, y: 13 },
+      { x: 6, y: 13 },
+      { x: 7, y: 13 },
+      { x: 8, y: 13 },
+      { x: 9, y: 13 },
+      { x: 10, y: 13 }
+    ];
+
+    const QUEEN = [
+      { x: 1, y: 1 },
+      { x: 7, y: 1 },
+      { x: 13, y: 1 },
+      { x: 1, y: 2 },
+      { x: 4, y: 2 },
+      { x: 6, y: 2 },
+      { x: 7, y: 2 },
+      { x: 8, y: 2 },
+      { x: 10, y: 2 },
+      { x: 13, y: 2 },
+      { x: 1, y: 3 },
+      { x: 2, y: 3 },
+      { x: 4, y: 3 },
+      { x: 5, y: 3 },
+      { x: 6, y: 3 },
+      { x: 7, y: 3 },
+      { x: 8, y: 3 },
+      { x: 9, y: 3 },
+      { x: 10, y: 3 },
+      { x: 12, y: 3 },
+      { x: 13, y: 3 },
+      { x: 1, y: 4 },
+      { x: 2, y: 4 },
+      { x: 3, y: 4 },
+      { x: 4, y: 4 },
+      { x: 5, y: 4 },
+      { x: 6, y: 4 },
+      { x: 8, y: 4 },
+      { x: 9, y: 4 },
+      { x: 10, y: 4 },
+      { x: 11, y: 4 },
+      { x: 12, y: 4 },
+      { x: 13, y: 4 },
+      { x: 2, y: 5 },
+      { x: 3, y: 5 },
+      { x: 4, y: 5 },
+      { x: 5, y: 5 },
+      { x: 9, y: 5 },
+      { x: 10, y: 5 },
+      { x: 11, y: 5 },
+      { x: 12, y: 5 },
+      { x: 2, y: 6 },
+      { x: 3, y: 6 },
+      { x: 4, y: 6 },
+      { x: 10, y: 6 },
+      { x: 11, y: 6 },
+      { x: 12, y: 6 },
+      { x: 2, y: 7 },
+      { x: 3, y: 7 },
+      { x: 4, y: 7 },
+      { x: 5, y: 7 },
+      { x: 9, y: 7 },
+      { x: 10, y: 7 },
+      { x: 11, y: 7 },
+      { x: 12, y: 7 },
+      { x: 3, y: 8 },
+      { x: 4, y: 8 },
+      { x: 5, y: 8 },
+      { x: 6, y: 8 },
+      { x: 8, y: 8 },
+      { x: 9, y: 8 },
+      { x: 10, y: 8 },
+      { x: 11, y: 8 },
+      { x: 4, y: 9 },
+      { x: 5, y: 9 },
+      { x: 6, y: 9 },
+      { x: 7, y: 9 },
+      { x: 8, y: 9 },
+      { x: 9, y: 9 },
+      { x: 10, y: 9 },
+      { x: 5, y: 10 },
+      { x: 6, y: 10 },
+      { x: 7, y: 10 },
+      { x: 8, y: 10 },
+      { x: 9, y: 10 },
+      { x: 5, y: 11 },
+      { x: 6, y: 11 },
+      { x: 7, y: 11 },
+      { x: 8, y: 11 },
+      { x: 9, y: 11 },
+      { x: 2, y: 12 },
+      { x: 3, y: 12 },
+      { x: 4, y: 12 },
+      { x: 5, y: 12 },
+      { x: 6, y: 12 },
+      { x: 7, y: 12 },
+      { x: 8, y: 12 },
+      { x: 9, y: 12 },
+      { x: 10, y: 12 },
+      { x: 11, y: 12 },
+      { x: 12, y: 12 },
+      { x: 1, y: 13 },
+      { x: 2, y: 13 },
+      { x: 3, y: 13 },
+      { x: 4, y: 13 },
+      { x: 5, y: 13 },
+      { x: 6, y: 13 },
+      { x: 7, y: 13 },
+      { x: 8, y: 13 },
+      { x: 9, y: 13 },
+      { x: 10, y: 13 },
+      { x: 11, y: 13 },
+      { x: 12, y: 13 },
+      { x: 13, y: 13 }
+    ];
+
+    function drawPiece(table, piece, isBlack) {
+      const isWhiteSquare = table
+        .querySelector("td")
+        .classList.contains("synapse");
+      //note tablearray is in [y][x] format
+      const trArray = Array.from(table.querySelectorAll("tr")).map((tr) =>
+        Array.from(tr.querySelectorAll("td"))
+      );
+      trArray.forEach(
+        (tr, y) => tr.forEach((td) => td.classList.remove("synapse4"))
+        // tr.forEach((td) => td.classList.add("synapse4"))
+      );
+      piece.forEach((coord) => {
+        const classToAdd = ["synapse4"];
+        trArray[coord.y][coord.x].classList.add(
+          ...(isBlack ? classToAdd.concat("black") : classToAdd)
+        );
+      });
+    }
+
+    function drawPawns() {
+      const table = document.querySelectorAll("table");
+      [8, 9, 10, 11, 12, 13, 14, 15].forEach(
+        (pos, i) =>
+          // setTimeout((_) =>
+          drawPiece(table[pos], PAWN, true)
+        // , 1000 * i)
+      );
+      [48, 49, 50, 51, 52, 53, 54, 55].forEach(
+        (pos, i) =>
+          // setTimeout((_) =>
+          drawPiece(table[pos], PAWN, false)
+        // , 1000 * i)
+      );
+    }
+    function drawMajors() {
+      const blackPos = [0, 1, 2, 3, 4, 5, 6, 7];
+      const whitePos = [56, 57, 58, 59, 60, 61, 62, 63];
+
+      const pieces = [ROOK, HORS, BISH, QUEEN, KING, BISH, HORS, ROOK];
+      const table = document.querySelectorAll("table");
+      whitePos.forEach(
+        (pos, i) =>
+          // setTimeout((_) =>
+          drawPiece(table[pos], pieces[i], false)
+        // , 1000 * i)
+      );
+      blackPos.forEach(
+        (pos, i) =>
+          // setTimeout((_) =>
+          drawPiece(table[pos], pieces[i], true)
+        // , 1000 * i)
+      );
+    }
+    setTimeout((_) => {
+      drawPawns();
+      drawMajors();
+    }, 3500);
+    document.body.style.filter = "saturate(1.5)";
+  </script>
+</html>

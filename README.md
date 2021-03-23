@@ -1,2 +1,2 @@
-# chess-visuals
+# greensquares
 Created with CodeSandbox
