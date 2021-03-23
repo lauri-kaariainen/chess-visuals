@@ -189,8 +189,13 @@
 
     // console.log(arrayOfTDs);
 
+    function getCharToDraw() {
+      return String.fromCharCode(34 + Math.floor(Math.random() * 90));
+    }
+
     function drawToHtml(arr, i) {
       const table = document.createElement("table");
+      const char = getCharToDraw();
       table.innerHTML = arr
         .map(
           (line, y) =>
@@ -204,9 +209,7 @@
                           isLightSquare(Math.floor(i / 8), i % 8)
                             ? "synapse"
                             : ""
-                        }">${String.fromCharCode(
-                    34 + Math.floor(Math.random() * 90)
-                  )}</td>` //ch === "#" ? "synapse" : ""}">${"."}</td>`
+                        }">${char}</td>` //ch === "#" ? "synapse" : ""}">${"."}</td>`
               )
               .join(" ") +
             "</tr>"
