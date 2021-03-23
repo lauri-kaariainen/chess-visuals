@@ -25,7 +25,7 @@
         justify-content: center;
         transform-origin: top;
         transform: scale(10);
-        filter: saturate(10) brightness(100);
+        /* filter: saturate(10) brightness(100); */
         /* filter: saturate(1.2) hue-rotate(80deg); */
         /* overflow: hidden; */
         /* transform: scale(6); */
@@ -35,10 +35,11 @@
       td.synapse {
         /* background: #348138; */
         /* color: #0f0f23; */
-        text-shadow: #2cff00 1px 1px 9px, #2cff00 1px -1px 9px,
-          #2cff00 -1px 1px 9px, #2cff00 -1px -1px 9px;
+        /* text-shadow: #2cff00 1px 1px 9px, #2cff00 1px -1px 9px,
+          #2cff00 -1px 1px 9px, #2cff00 -1px -1px 9px; */
         text-shadow: #21d621 1px 1px 8px, #21d621 -1px 1px 8px,
           #21d621 1px -1px 8px;
+        /* text-shadow: #21d621 1px 1px 4px, #21d621 -1px 1px 4px; */
       }
       td.synapse1 {
         /* background: #348138; */
@@ -58,13 +59,13 @@
       }
       td.synapse4 {
         /*whitish*/
-        text-shadow: #fff 1px 1px 9px, #fff 1px -1px 9px, #fff -1px 1px 9px,
-          #fff -1px -1px 9px;
+        /* text-shadow: #fff 1px 1px 9px, #fff 1px -1px 9px, #fff -1px 1px 9px,
+          #fff -1px -1px 9px; */
         text-shadow: #fff 2px 2px 2px, #fff 2px -2px 2px, #fff -2px 2px 2px,
           #fff -2px -2px 2px;
-        /* text-shadow: #89ff79 1px 1px 9px, #89ff79 1px -1px 9px,
-          #89ff79 -1px 1px 9px, #89ff79 -1px -1px 9px; */
-        /* filter: saturate(10); */
+
+        /* text-shadow: #fff 2px 2px 4px, #fff 2px -2px 4px; */
+
         filter: brightness(15);
         /* transition: all 3s ease-in; */
       }
@@ -105,14 +106,14 @@
         width: 100%;
       }
 
-      td.invert {
+      /* td.invert {
         text-shadow: #2cff00 1px 1px 9px, #2cff00 1px -1px 9px,
           #2cff00 -1px 1px 9px, #2cff00 -1px -1px 9px;
       }
       td.synapse.invert {
         text-shadow: darkgreen 1px 1px 8px, darkgreen -1px 1px 8px,
           darkgreen 1px -1px 8px;
-      }
+      } */
       td {
         /* height: 8px; */
         /* line-height: 8px; */
@@ -144,6 +145,7 @@
   <body></body>
 
   <script>
+    window.scrollTo(0, 0);
     // const SIDELENGTH = ;
     // const LINEHEIGHT = 8;
     // const LINEWIDTH = 14.2;
@@ -162,30 +164,26 @@
     //   widthInLetters
     // );
 
-    var arr = Array.from(new Array(PIXELSAMOUNT)).map((e) =>
-      Array.from(new Array(PIXELSAMOUNT)).map((e) => ".")
-    );
+    var arr = Array.from(new Array(PIXELSAMOUNT))
+      .map((e) => Array.from(new Array(PIXELSAMOUNT)).map((e) => "."))
+      .map((line, y) => line.map((ch, x) => "."));
 
-    const newArr = arr.map((line, y) =>
-      line.map(
-        (ch, x) =>
-          // (Math.floor((y / BOXSIZE) % 2) || Math.floor((x / BOXSIZE) % 2)) &&
-          // !(Math.floor((y / BOXSIZE) % 2) && Math.floor((x / BOXSIZE) % 2))
-          //   ? "#"
-          // :
-          "."
-      )
-    );
+    // const newArr = arr.map((line, y) =>
+    //   line.map(
+    //     (ch, x) =>
+    //       "."
+    //   )
+    // );
 
-    for (let i = 0; i < 64; i++) drawToHtml(newArr, i);
+    for (let i = 0; i < 64; i++) drawToHtml(arr, i);
 
-    const arrayOfTDs = Array.from(document.querySelectorAll("tr")).map((tr) =>
-      Array.from(tr.querySelectorAll("td"))
-    );
+    // const arrayOfTDs = Array.from(document.querySelectorAll("tr")).map((tr) =>
+    //   Array.from(tr.querySelectorAll("td"))
+    // );
 
-    const originalClassesArray = arrayOfTDs.map((tdArr) =>
-      tdArr.map((td) => td.className)
-    );
+    // const originalClassesArray = arrayOfTDs.map((tdArr) =>
+    //   tdArr.map((td) => td.className)
+    // );
 
     // console.log(arrayOfTDs);
 
@@ -195,6 +193,7 @@
 
     function drawToHtml(arr, i) {
       const table = document.createElement("table");
+      table.onclick = (e) => redrawSquare(e.currentTarget, 20);
       const char = getCharToDraw();
       table.innerHTML = arr
         .map(
@@ -218,21 +217,39 @@
       document.querySelector("body").appendChild(table);
     }
 
+    function redrawSquare(square, counter = 0) {
+      if (counter == 0) {
+        const char = getCharToDraw();
+        square.querySelectorAll("td").forEach((td) => (td.innerHTML = char));
+      } else {
+        square
+          .querySelectorAll("td")
+          .forEach((td) => (td.innerHTML = getCharToDraw()));
+        setTimeout((_) => {
+          redrawSquare(square, counter - 1);
+          // const char = getCharToDraw();
+          // square.querySelectorAll("td").forEach((td) => (td.innerHTML = char));
+        }, 50);
+      }
+
+      // if (skipRandom) {
+      //   const char = getCharToDraw();
+      //   square.querySelectorAll("td").forEach((td) => (td.innerHTML = char));
+      // } else {
+      //   square
+      //     .querySelectorAll("td")
+      //     .forEach((td) => (td.innerHTML = getCharToDraw()));
+      //   setTimeout((_) => {
+      //     redrawSquare(square, true);
+      //     // const char = getCharToDraw();
+      //     // square.querySelectorAll("td").forEach((td) => (td.innerHTML = char));
+      //   }, 2000);
+      // }
+    }
+
     function isLightSquare(row, column) {
       return row % 2 == column % 2;
     }
-
-    const SCALEAMOUNTATSTART = 10; //make same as in css body component
-    const REALWIDTH =
-      document.querySelector("td").getBoundingClientRect().width *
-      PIXELSAMOUNT *
-      8;
-
-    if (innerWidth < REALWIDTH)
-      document.querySelector("body").style.transform = `scale(${
-        // innerWidth < REALWIDTH ? innerWidth / REALWIDTH : REALWIDTH / innerWidth
-        (innerWidth / (REALWIDTH * 1.1)) * SCALEAMOUNTATSTART
-      })`;
 
     // function handleMove(xInPixels, yInPixels) {
     //   // console.log(xInPixels, window.innerWidth);
@@ -948,6 +965,18 @@
       drawPawns();
       drawMajors();
     }, 3500);
+
+    const SCALEAMOUNTATSTART = 10; //make same as in css body component
+    const REALWIDTH =
+      document.querySelector("td").getBoundingClientRect().width *
+      PIXELSAMOUNT *
+      8;
+
+    if (innerWidth < REALWIDTH)
+      document.querySelector("body").style.transform = `scale(${
+        // innerWidth < REALWIDTH ? innerWidth / REALWIDTH : REALWIDTH / innerWidth
+        (innerWidth / (REALWIDTH * 1.1)) * SCALEAMOUNTATSTART
+      })`;
     document.body.style.filter = "saturate(1.5)";
   </script>
 </html>
