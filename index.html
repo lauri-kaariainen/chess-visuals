@@ -54,7 +54,7 @@
         text-shadow: #fff 2px 2px 2px, #fff 2px -2px 2px, #fff -2px 2px 2px,
           #fff -2px -2px 2px;
         filter: brightness(15);
-        transition: all 3s;
+        /* transition: filter 3s; */
       }
 
       td.synapse5 {
@@ -126,7 +126,7 @@
       const table = document.createElement("table");
       table.style.filter =
         "hue-rotate(" + Math.floor(Math.random() * 360) + "deg)";
-      table.onclick = (e) => redrawSquare(e.currentTarget, 20);
+      table.onclick = (e) => redrawSquare(e.currentTarget, 15);
       const char = getCharToDraw();
       table.innerHTML = arr
         .map(
