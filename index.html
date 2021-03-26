@@ -14,15 +14,23 @@
         user-select: none;
       }
       body {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        transform-origin: top;
+      }
+      .buffer {
+        min-width: 50px;
+      }
+      .topcontent {
         font-family: monospace;
         cursor: crosshair;
-        overflow: auto;
+        /* overflow: auto; */
         padding: 0;
         margin: 0;
         display: grid;
         grid-template-columns: repeat(8, auto);
         justify-content: center;
-        transform-origin: top;
         /* transform: scale(10); */
 
         /* transition: filter 4s ease-in, transform 6s; */
@@ -30,46 +38,33 @@
       }
 
       td.synapse {
-        text-shadow: #21d621 1px 1px 8px, #21d621 -1px 1px 8px,
-          #21d621 1px -1px 8px;
-      }
-
-      td.synapse1 {
-        text-shadow: #2cff00 1px 1px 9px, #2cff00 1px -1px 9px,
-          #2cff00 -1px 1px 9px, #2cff00 -1px -1px 9px;
-      }
-      td.synapse2 {
-        /* yellowish */
-        text-shadow: #e5ff00 1px 1px 9px, #e5ff00 1px -1px 9px,
-          #e5ff00 -1px 1px 9px, #e5ff00 -1px -1px 9px;
-      }
-      td.synapse3 {
-        /*redish*/
-        text-shadow: #ff2121 1px 1px 9px, #ff2121 1px -1px 9px,
-          #ff2121 -1px 1px 9px, #ff2121 -1px -1px 9px;
+        /* text-shadow: #21d621 1px 1px 8px, #21d621 -1px 1px 8px,
+             #21d621 1px -1px 8px;
+           text-shadow: #21d621 1px 1px 8px, #21d621 -1px 1px 8px; */
       }
 
       td.synapse4 {
         /*whitish*/
-        text-shadow: #fff 2px 2px 2px, #fff 2px -2px 2px, #fff -2px 2px 2px,
-          #fff -2px -2px 2px;
+        /* text-shadow: #fff 2px 2px 2px, #fff 2px -2px 2px, #fff -2px 2px 2px,
+             #fff -2px -2px 2px;
+           text-shadow: #fff 2px 2px 2px, #fff 2px -2px 2px; */
         filter: brightness(15);
-        /* transition: filter 3s; */
       }
-
-      td.synapse5 {
-        /* purple */
-        text-shadow: #ea81ff 1px 1px 9px, #ea81ff 1px -1px 9px,
-          #ea81ff -1px 1px 9px, #ea81ff -1px -1px 9px;
-      }
-      td.synapse6 {
-        /* blue */
-        text-shadow: #5980ff 1px 1px 9px, #5980ff 1px -1px 9px,
-          #5980ff -1px 1px 9px, #5980ff -1px -1px 9px;
-      }
+      /*
+         td.synapse5 {
+           text-shadow: #ea81ff 1px 1px 9px, #ea81ff 1px -1px 9px,
+             #ea81ff -1px 1px 9px, #ea81ff -1px -1px 9px;
+         }
+         td.synapse6 {
+           text-shadow: #5980ff 1px 1px 9px, #5980ff 1px -1px 9px,
+             #5980ff -1px 1px 9px, #5980ff -1px -1px 9px;
+         } */
 
       table {
         border-spacing: 0px;
+        /* overflow-x: hidden; */
+        /* margin: -10px; */
+        /* padding: 80px; */
       }
 
       .row,
@@ -90,9 +85,11 @@
       td {
         text-shadow: darkgreen 1px 1px 8px, darkgreen -1px 1px 8px,
           darkgreen 1px -1px 8px;
+        /* text-shadow: darkgreen 1px 1px 8px, darkgreen -1px 1px 8px; */
         max-width: 21.2px;
         /* min-width: 14.2px;  */
         padding: 0px;
+        font-weight: bolder;
       }
 
       td.black {
@@ -100,7 +97,11 @@
       }
     </style>
   </head>
-  <body></body>
+  <body>
+    <div class="buffer"></div>
+    <div class="topcontent"></div>
+    <div class="buffer"></div>
+  </body>
 
   <script>
     // window.scrollTo(0, 0);
@@ -147,20 +148,27 @@
             "</tr>"
         )
         .join("");
-      document.querySelector("body").appendChild(table);
+      document.querySelector(".topcontent").appendChild(table);
     }
+    window.timer = { a: 0, b: 0, c: 0, d: 0 };
 
     function redrawSquare(table, counter = 0) {
       if (counter == 0) {
         table.style.filter =
           "hue-rotate(" + Math.floor(Math.random() * 360) + "deg)";
         const char = getCharToDraw();
-        table.querySelectorAll("td").forEach((td) => (td.innerHTML = char));
+        table.querySelectorAll("td").forEach((td) => (td.innerText = char));
       } else {
-        table
-          .querySelectorAll("td")
-          .forEach((td) => (td.innerHTML = getCharToDraw()));
+        const tds = table.querySelectorAll("td");
+        tds.forEach((td, i) => {
+          if (counter % 2 !== i % 2) return;
+
+          const char = getCharToDraw();
+          // td.innerText = char;
+          td.textContent = char;
+        });
         setTimeout((_) => {
+          // requestAnimationFrame((_) => redrawSquare(table, counter - 1));
           redrawSquare(table, counter - 1);
         }, 50);
       }
@@ -795,20 +803,25 @@
       { x: 5, y: 3 },
 
       { x: 9, y: 8 },
-      { x: 9, y: 7 },
-      { x: 9, y: 6 },
       { x: 9, y: 5 },
       { x: 9, y: 4 },
-      { x: 9, y: 3 },
-      { x: 10, y: 8 },
-      { x: 11, y: 8 },
-      { x: 12, y: 8 },
-      { x: 12, y: 8 },
-      { x: 12, y: 7 },
-      { x: 12, y: 6 },
-      { x: 12, y: 5 },
-      { x: 12, y: 4 },
-      { x: 12, y: 3 }
+      { x: 9, y: 3 }
+
+      // { x: 9, y: 8 },
+      // { x: 9, y: 7 },
+      // { x: 9, y: 6 },
+      // { x: 9, y: 5 },
+      // { x: 9, y: 4 },
+      // { x: 9, y: 3 },
+      // { x: 10, y: 8 },
+      // { x: 11, y: 8 },
+      // { x: 12, y: 8 },
+      // { x: 12, y: 8 },
+      // { x: 12, y: 7 },
+      // { x: 12, y: 6 },
+      // { x: 12, y: 5 },
+      // { x: 12, y: 4 },
+      // { x: 12, y: 3 }
     ];
     const S = [
       { x: 3, y: 8 },
@@ -829,6 +842,12 @@
       { x: 9, y: 4 },
       { x: 9, y: 3 }
     ];
+
+    function getRandomPiece() {
+      return [PAWN, HORS, BISH, ROOK, QUEEN, KING][
+        Math.floor(Math.random() * 6)
+      ];
+    }
 
     function drawPiece(table, piece, isBlack) {
       const isWhiteSquare = table
@@ -851,39 +870,56 @@
     }
 
     function drawPawns() {
-      const table = document.querySelectorAll("table");
+      const tables = document.querySelectorAll("table");
       [8, 9, 10, 11, 12, 13, 14, 15].forEach(
         (pos, i) =>
           // setTimeout((_) =>
-          drawPiece(table[pos], PAWN, true)
+          drawPiece(tables[pos], PAWN, true)
         // , 1000 * i)
       );
-      [48, 49, 50, 51, 52, 53, 54, 55].forEach(
-        (pos, i) =>
-          // setTimeout((_) =>
-          drawPiece(table[pos], PAWN, false)
-        // , 1000 * i)
-      );
+      if (tables.length > 55)
+        [48, 49, 50, 51, 52, 53, 54, 55].forEach(
+          (pos, i) =>
+            // setTimeout((_) =>
+            drawPiece(tables[pos], PAWN, false)
+          // , 1000 * i)
+        );
     }
     function drawMajors() {
       const blackPos = [0, 1, 2, 3, 4, 5, 6, 7];
       const whitePos = [56, 57, 58, 59, 60, 61, 62, 63];
 
       const pieces = [ROOK, HORS, BISH, QUEEN, KING, BISH, HORS, ROOK];
-      const table = document.querySelectorAll("table");
-      whitePos.forEach(
-        (pos, i) =>
-          // setTimeout((_) =>
-          drawPiece(table[pos], pieces[i], false)
-        // , 1000 * i)
-      );
+      const tables = document.querySelectorAll("table");
       blackPos.forEach(
         (pos, i) =>
           // setTimeout((_) =>
-          drawPiece(table[pos], pieces[i], true)
+          drawPiece(tables[pos], pieces[i], true)
         // , 1000 * i)
       );
+      if (tables.length >= 63)
+        whitePos.forEach(
+          (pos, i) =>
+            // setTimeout((_) =>
+            drawPiece(tables[pos], pieces[i], false)
+          // , 1000 * i)
+        );
     }
+    const SCALEAMOUNTATSTART = 1; //5; //make same as in css body component
+    const ROWBOXAMOUNT = 8;
+    const REALWIDTH =
+      document.querySelector("td").getBoundingClientRect().width *
+      PIXELSAMOUNT *
+      ROWBOXAMOUNT;
+
+    if (innerWidth < REALWIDTH)
+      document.querySelector("body").style.transform = `scale(${
+        // innerWidth < REALWIDTH ? innerWidth / REALWIDTH : REALWIDTH / innerWidth
+        (innerWidth / (REALWIDTH * 1.1)) * SCALEAMOUNTATSTART
+      })`;
+
+    // drawPiece(drawPiece(document.querySelector("table"), HORS, true));
+
     setTimeout((_) => {
       drawPawns();
       drawMajors();
@@ -891,19 +927,30 @@
     drawPiece(document.querySelectorAll("table")[2], CL, true);
     drawPiece(document.querySelectorAll("table")[3], IC, true);
     drawPiece(document.querySelectorAll("table")[4], KU, true);
-    drawPiece(document.querySelectorAll("table")[5], S, true);
+    // drawPiece(document.querySelectorAll("table")[5], S, true);
 
-    const SCALEAMOUNTATSTART = 1; //5; //make same as in css body component
-    const REALWIDTH =
-      document.querySelector("td").getBoundingClientRect().width *
-      PIXELSAMOUNT *
-      8;
+    //reason for this one is some browsers repaint whole screen if rightmost tables are randomizing
+    // document.querySelectorAll("table").forEach((table, i) => {
+    //   if (
+    //     i === 7 ||
+    //     i === 15 ||
+    //     i === 23 ||
+    //     i === 31 ||
+    //     i === 39 ||
+    //     i == 47 ||
+    //     i == 55 ||
+    //     i == 63
+    //   ) {
+    //     // table.style.overflowX = "hidden";
+    //     // table.style.marginBottom = "-5px";
+    //     table.style.marginRight = "50px";
+    //     // table.style.margin = "-5px";
+    //   }
+    //   if (i % 8 === 0) {
+    //     table.style.marginLeft = "50px";
+    //   }
+    // });
 
-    if (innerWidth < REALWIDTH)
-      document.querySelector("body").style.transform = `scale(${
-        // innerWidth < REALWIDTH ? innerWidth / REALWIDTH : REALWIDTH / innerWidth
-        (innerWidth / (REALWIDTH * 1.1)) * SCALEAMOUNTATSTART
-      })`;
     document.body.style.filter = "saturate(1.5)";
   </script>
 </html>
